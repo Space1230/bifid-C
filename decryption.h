@@ -1,6 +1,5 @@
 #include "hashmap.h"
-#define LOCS_LEN 5
-
+#include "main.h"
 
 /*
 ** do decryption logic
@@ -47,19 +46,19 @@ void decrypt(char *n_plaintext, int n_plaintext_len, char* n_key, int n_key_len,
     hashmap_fill(&hashmap, n_key, n_key_len);
 
 
-    square_location locs[LOCS_LEN];
+    square_location locs[BLOCK_SIZE];
     int locs_index = 0;
-    square_location new_locs[LOCS_LEN];
+    square_location new_locs[BLOCK_SIZE];
 
     int plaintext_index = 0;
 
     for (int i = 0; i < n_cyphertext_len; i++) {
       // process each block
-      if (locs_index == 5) {
-        decryption_process_locs(locs, 5, new_locs);
+      if (locs_index == BLOCK_SIZE) {
+        decryption_process_locs(locs, BLOCK_SIZE, new_locs);
 
         // save new locs to the cyphertext
-        for (int j = 0; j < 5; j++) {
+        for (int j = 0; j < BLOCK_SIZE; j++) {
             char item = hashmap_get_key_at_location(hashmap, new_locs[j]);
             n_plaintext[plaintext_index++] = item;
         }
