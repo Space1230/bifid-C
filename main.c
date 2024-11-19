@@ -12,25 +12,11 @@ char test_plaintext_len = sizeof(test_plaintext) / sizeof(char);
 hashmap_entry* hashmap = NULL;
 
 /*
-** do decryption logic
-**
-** basically, we need to do the reverse.
-**
-** we need to put the key into the hashmap (easy)
-** we need to transform the string into locs (easy)
-** we may need a new process locs function (unknown)
-** we need to tranform the locs into string (easy)
-**
-** 0123456789 <- plain text
-**
-** 0 2 4 6 8
-** 1 3 5 7 9
-**
-** 0246813579 <- cyphertext
-**
-** height = index
-** width = index + 5
-*/
+ * pass the plaintext and key for encryption
+ * pass the cyphertext and key for decryption
+ *
+ * use argp
+ */
 
 
 int main() {
