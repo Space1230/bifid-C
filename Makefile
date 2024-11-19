@@ -8,7 +8,7 @@
 # @version 0.1
 
 binary = bifid
-objects = main.o
+objects = main.o hashmap.o char_utils.o
 
 $(binary) : $(objects)
 	cc $(objects) -o $(binary)

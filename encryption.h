@@ -1,5 +1,5 @@
 
-#include "encryption_hashmap.h"
+#include "hashmap.h"
 
 #ifndef ENCRYPTION_H_
 #define ENCRYPTION_H_
