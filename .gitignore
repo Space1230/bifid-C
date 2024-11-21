@@ -5,3 +5,4 @@ tmp/
 
 bifid
 *.o
+.vscode/settings.json

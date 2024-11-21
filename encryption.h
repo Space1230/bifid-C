@@ -61,7 +61,7 @@ void process_locs(square_location *locs, int loc_size,
   }
 }
 
-void encrypt(char *plaintext, int plaintext_len, char* key, int key_len, char *cyphertext) {
+void encrypt(char *plaintext, int plaintext_len, char* key, int key_len, char *cyphertext, int BLOCK_SIZE) {
     // TODO ensure lengths
 
     hashmap_entry* hashmap = NULL;

@@ -39,7 +39,7 @@ void decryption_process_locs(square_location *locs, int loc_size,
 //
 // or we could just not care...
 
-void decrypt(char *n_plaintext, int n_plaintext_len, char* n_key, int n_key_len, char *n_cyphertext, int n_cyphertext_len) {
+void decrypt(char *n_plaintext, char* n_key, int n_key_len, char *n_cyphertext, int n_cyphertext_len, int BLOCK_SIZE) {
     // TODO ensure lengths
 
     hashmap_entry* hashmap = NULL;
