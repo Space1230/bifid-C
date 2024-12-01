@@ -31,9 +31,9 @@ int main() {
         scanf("%s", key);
         int key_len = strlen(key);
 
-        if (key_len < 26) {
+        if (key_len < 25) {
             // the key is too short, add the rest of the alphabet to the end in alphabetical order
-            char alphabet[27] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '\0'};
+            char alphabet[27] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '\0'};
             int alphabetlen = sizeof(alphabet) / sizeof(char);
             for (int i = 0; i < key_len; i++) {
                 // find the index of the current character in alphabet
@@ -47,6 +47,7 @@ int main() {
                 }
             }
             strcat(key, alphabet);
+            key_len = strlen(key);
             printf("Key too short. Supplemented key: %s\n", key);
         }
 
@@ -57,7 +58,7 @@ int main() {
         char cyphertext[plaintext_len];
 
         encrypt(plaintext, plaintext_len, key, key_len, cyphertext, BLOCK_SIZE);
-        printf("%s\n", cyphertext);
+
     } else if (mode == 'd') {
         printf("Decrypting\n");
 
@@ -71,6 +72,26 @@ int main() {
         scanf("%s", key);
         int key_len = strlen(key);
 
+        if (key_len < 25) {
+            // the key is too short, add the rest of the alphabet to the end in alphabetical order
+            char alphabet[27] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '\0'};
+            int alphabetlen = sizeof(alphabet) / sizeof(char);
+            for (int i = 0; i < key_len; i++) {
+                // find the index of the current character in alphabet
+                int j=0;
+                while((j<alphabetlen) && (alphabet[j] != key[i])) j++;
+
+                // shift all elements of alphabet up to overwrite the current character
+                // this makes sure a duplicate is not added with the other missing characters
+                for (int k = j; k < alphabetlen-1; k++) { 
+                    alphabet[k] = alphabet[k + 1];
+                }
+            }
+            strcat(key, alphabet);
+            key_len = strlen(key);
+            printf("Key too short. Supplemented key: %s\n", key);
+        }
+
         int BLOCK_SIZE;
         printf("Please enter the integer period: \n");
         scanf("%d", &BLOCK_SIZE);
@@ -78,6 +99,7 @@ int main() {
         char decrypted_text[cyphertext_len];
 
         decrypt(decrypted_text, key, key_len, cyphertext, cyphertext_len, BLOCK_SIZE);
+        printf("%ld\n", strlen(cyphertext));
 
         printf("%s\n", decrypted_text);
     }
