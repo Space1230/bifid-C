@@ -1,4 +1,6 @@
 #include <stdio.h>
+#include <string.h>
+#include <ctype.h>
 
 #include "encryption.h"
 #include "decryption.h"
@@ -19,17 +21,36 @@ int main() {
     if (mode == 'e') {
         printf("Encrypting: \n");
 
-        char plaintext[];
-        printf("Please enter the text to encrypt: \n");
-        scanf("%s", &plaintext);
-        int plaintext_len = sizeof(plaintext) / sizeof(char);
+        char plaintext[512];
+        printf("Please enter the text to encrypt: (512 character limit, no spaces) \n");
+        scanf("%s", plaintext);
+        int plaintext_len = strlen(plaintext);
 
-        char key[26]; // = "Phqgm Eayln Ofdxk Rcvsz Wbuti...////"
-        printf("Please enter the encryption key: \n");
-        scanf("%s", &key);
-        int key_len = sizeof(key) / sizeof(char);
+        char key[26]; // = "PhqgmEaylnOfdxkRcvszWbuti...////"
+        printf("Please enter the encryption key: (no spaces) \n");
+        scanf("%s", key);
+        int key_len = strlen(key);
 
-        const int BLOCK_SIZE;
+        if (key_len < 26) {
+            // the key is too short, add the rest of the alphabet to the end in alphabetical order
+            char alphabet[27] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '\0'};
+            int alphabetlen = sizeof(alphabet) / sizeof(char);
+            for (int i = 0; i < key_len; i++) {
+                // find the index of the current character in alphabet
+                int j=0;
+                while((j<alphabetlen) && (alphabet[j] != key[i])) j++;
+
+                // shift all elements of alphabet up to overwrite the current character
+                // this makes sure a duplicate is not added with the other missing characters
+                for (int k = j; k < alphabetlen-1; k++) { 
+                    alphabet[k] = alphabet[k + 1];
+                }
+            }
+            strcat(key, alphabet);
+            printf("Key too short. Supplemented key: %s\n", key);
+        }
+
+        int BLOCK_SIZE;
         printf("Please enter the integer period: \n");
         scanf("%d", &BLOCK_SIZE);
 
@@ -40,17 +61,17 @@ int main() {
     } else if (mode == 'd') {
         printf("Decrypting\n");
 
-        char cyphertext[];
-        printf("Please enter the cypher to decrypt: \n");
-        scanf("%s", &cyphertext);
-        int cyphertext_len = sizeof(cyphertext) / sizeof(char);
+        char cyphertext[512];
+        printf("Please enter the cypher to decrypt: (512 character limit, no spaces) \n");
+        scanf("%s", cyphertext);
+        int cyphertext_len = strlen(cyphertext);
 
         char key[26];
-        printf("Please enter the decryption key: \n");
-        scanf("%s", &key);
-        int key_len = sizeof(key) / sizeof(char);
+        printf("Please enter the decryption key: (no spaces) \n");
+        scanf("%s", key);
+        int key_len = strlen(key);
 
-        const int BLOCK_SIZE;
+        int BLOCK_SIZE;
         printf("Please enter the integer period: \n");
         scanf("%d", &BLOCK_SIZE);
 
