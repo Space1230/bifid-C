@@ -1,0 +1,32 @@
+Bifid Cypher in C
+Andy Sparks
+Clara Shoemaker
+
+Instructions:
+    User input is received in the command line.
+
+    First download and open the folder in a Linux system, Linux VM, or WSL.
+    Run the command $ make run
+
+    You will be prompted to decide the mode: encrypt or decrypt.
+    Type e and hit enter to encrypt.  Type d and hit enter to decrypt.
+    These are the only accepted inputs
+
+    Next you will be prompted for the text to encrypt or decrypt.
+    Text is case insensitive, but must not include any whitespace, and length must not exceed 512 characters.
+    To sumbit this text, hit enter.
+
+    Next you will be prompted for the encryption or decryption key.
+    The key is case insensitive, but must not include any whitespace. 
+    If the key is less than 25 characters long, the missing characters are added to the end alphabetically.
+    If the key is more than 25 characters long, the program will fail.
+    There must not be any duplicate characters in the key.  
+    Also do not put both 'i' and 'j' in the key, as these are interpreted as the same character.
+    To submit the key, hit enter.
+
+    Finally you will be prompted for the integer period.
+    This must be an integer between 1 and 100, inclusive.
+    Type the desired integer period and hit enter.
+
+    After you hit enter, the next line shows your result.
+    If this line is empty, please check your inputs to make sure they fit these specifications.
